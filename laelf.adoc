@@ -815,6 +815,41 @@ See <<code_models>> for how it works on various code models.
 |R_LARCH_TLS_DESC_PCREL20_S2
 | 22-bit PC-relative offset to TLS DESC GOT entry
 |`+(*(uint32_t *) PC) [24 ... 5] = (GOT+GD) [21 ... 2]+`
+
+|127
+|R_LARCH_CALL32
+|Used for calling a function in medium code model on LA32 with `pcaddu12i + jirl`.
+|`+(*(uint32_t *) PC) [24 ... 5] = (S+A-PC) [31 ... 12],+`
+
+ `+(*(uint32_t *) (PC+4)) [19 ... 10] = (S+A-PC) [11 ... 2]+`
+
+|128
+|R_LARCH_32R_PCREL
+|Used for addressing or loading a local symbol on LA32R with `pcaddu12i + addi.w` or `pcaddu12i + ld.[bhw]`.
+|`+(*(uint32_t *) PC) [24 ... 5] = (S+A-PC+0x800) [31 ... 12],+`
+
+ `+(*(uint32_t *) (PC+4)) [21 ... 10] = (S+A-PC) [11 ... 0]+`
+
+|129
+|R_LARCH_32R_GOT_PCREL
+|Used for loading a GOT entry on LA32R with `pcaddu12i + ld.w`.
+|`+(*(uint32_t *) PC) [24 ... 5] = (GOT+G-PC+0x800) [31 ... 12],+`
+
+ `+(*(uint32_t *) (PC+4)) [21 ... 10] = (GOT+G-PC) [11 ... 0]+`
+
+|130
+|R_LARCH_32R_TLS_IE_PCREL
+|Used for loading a TLS IE GOT entry on LA32R with `pcaddu12i + ld.w`.
+|`+(*(uint32_t *) PC) [24 ... 5] = (GOT+IE-PC+0x800) [31 ... 12],+`
+
+ `+(*(uint32_t *) (PC+4)) [21 ... 10] = (GOT+IE-PC) [11 ... 0]+`
+
+|131
+|R_LARCH_32R_TLS_DESC_PCREL
+|Used for addressing a TLS descriptor in the GOT on LA32R with `pcaddu12i + addi.w`.
+|`+(*(uint32_t *) PC) [24 ... 5] = (GOT+DESC-PC+0x800) [31 ... 12],+`
+
+ `+(*(uint32_t *) (PC+4)) [21 ... 10] = (GOT+DESC-PC) [11 ... 0]+`
 |===
 
 === Variables used in relocation calculation
